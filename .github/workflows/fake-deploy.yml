@@ -1,0 +1,25 @@
+name: Fake Deploy (DORA test)
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  deployments: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Simulate deploy
+        run: echo "Deploy simulado para testar DORA metrics"
+
+      - name: Create GitHub Deployment
+        uses: chrnorm/deployment-action@v2
+        with:
+          token: "${{ github.token }}"
+          environment: production
+          ref: "${{ github.sha }}"
